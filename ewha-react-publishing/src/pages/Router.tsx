@@ -4,6 +4,8 @@ import { LoginPage } from './LoginPage';
 import { HomePage } from './HomePage';
 import { MessagePage } from './MessagePage';
 import { SignupPage } from './SignupPage';
+import { FollowPage } from './FollowPage';
+
 
 export const Router = () => {
   return (
@@ -12,6 +14,7 @@ export const Router = () => {
       <Route path="/signup" component={SignupPage} />
       <Route path="/login" component={LoginPage} />
       <Route path="/" component={HomePage} exact />
+      <Route path="/follow" component={FollowPage} />
       <Route path="/">
         <Redirect to="/" />
       </Route>

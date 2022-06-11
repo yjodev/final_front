@@ -68,6 +68,9 @@ module.exports = {
         'screen-10': 'calc( 100vh - 10rem )',
         'screen-15': 'calc( 100vh - 15rem )',
       },
+      right: {
+        '-76': '-19rem'
+      }
     },
   },
   variants: {
