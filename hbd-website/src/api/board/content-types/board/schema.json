@@ -23,12 +23,6 @@
       "relation": "oneToMany",
       "target": "api::post.post",
       "mappedBy": "board"
-    },
-    "comments": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::comment.comment",
-      "mappedBy": "post"
     }
   }
 }

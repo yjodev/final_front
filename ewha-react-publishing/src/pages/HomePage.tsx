@@ -1,6 +1,15 @@
-import React, { ChangeEvent, useState } from 'react';
-import { Link } from 'react-router-dom';
+import axios from 'axios';
+import React, { ChangeEvent, useEffect, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { ProductCard } from '../components/ProductCard'
 
+export type Product = {
+  name: string;
+  description: string;
+  price: number;
+  image: string
+
+}
 const dummy = [{
   name: 'Mac Book Pro',
   price: 1960000,
@@ -138,9 +147,11 @@ const filters = [{
 
 
 export const HomePage = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [filter, setFilter] = useState<any>();
   const [search, setSearch] = useState("");
+  const [products, setProducts] = useState<Product[]>([]);
 
   const onChangeSearch = (e: any) => {
     e.preventDefault();
@@ -148,6 +159,38 @@ export const HomePage = () => {
   };
 
   console.log('search', search)
+
+  const getData = async () => {
+    const url = `http://localhost:1337/api/products`
+    const response = await fetch(url);
+    console.log(response)
+    if (response.status === 200) { // 데이터 잘 왔을 때 실행될 내용
+      const data = await response.json();
+      console.log(data)
+      setProducts(data.results);
+    }
+    else {
+      throw new Error("데이터를 받아오지 못했습니다.")
+    }
+    setIsLoading(false);
+  }
+
+  const { push } = useHistory();
+
+  useEffect(() => { //Effect Hook은 리랜더링 될때마다 실행된다. 하지만 배열을 넘겨서 선택적으로 업데이트 할 수 있다. 
+    getData();
+    // const getData = axios
+    //   .get('http://localhost:1337/api/products')
+    //   .then((res) => {
+    //     console.log(res);
+    //     setProducts(res.data.data);
+    //     console.log(res.data.data);
+    // });
+  }, []); // 처음 렌더링 될때만 데이터를 가져온다
+
+
+
+
   return (
     <div className="header">
       <div className="container mx-auto px-6 py-3">
@@ -155,13 +198,15 @@ export const HomePage = () => {
         <div className="flex items-center justify-between">
 
           <div className="hidden w-full text-gray-600 md:flex md:items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 stroke-slate-400 mr-4 group-hover:stroke-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 stroke-slate-400 mr-4 group-hover:stroke-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
 
             </svg>
             <Link to="/follow">
               <button className="mx-1 text-sm">Follower</button>
             </Link>
+
+
           </div>
 
           <button className="w-full text-gray-700 md:text-center text-2xl font-semibold">
@@ -269,6 +314,7 @@ export const HomePage = () => {
           }).map((data: any) => <div className="">
 
             <div className="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
+              <div> </div>
               <div className="flex items-end justify-end h-56 w-full bg-cover" style={{ backgroundImage: "url(" + data.image + ")" }}>
                 <button className="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
                   <svg className="h-5 w-5" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
@@ -281,6 +327,12 @@ export const HomePage = () => {
               </div>
             </div>
           </div>)}
+
+
+          {/* {!isLoading && products.map((product) =>
+            <ProductCard
+              product={product}
+            />)} */}
         </div>
 
 

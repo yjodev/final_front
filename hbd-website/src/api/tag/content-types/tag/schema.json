@@ -8,11 +8,11 @@
     "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
-    "keyword": {
+    "Text": {
       "type": "string",
       "required": true,
       "unique": true
@@ -21,7 +21,7 @@
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::post.post",
-      "inversedBy": "tags"
+      "mappedBy": "tags"
     }
   }
 }

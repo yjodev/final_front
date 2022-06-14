@@ -15,6 +15,7 @@ export const Router = () => {
       <Route path="/login" component={LoginPage} />
       <Route path="/" component={HomePage} exact />
       <Route path="/follow" component={FollowPage} />
+      <Route path="/rooms/:id" component={MessagePage} exact />
 
       <Route path="/">
         <Redirect to="/" />

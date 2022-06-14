@@ -8,21 +8,25 @@
     "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
-    "content": {
-      "type": "text"
-    },
-    "images": {
-      "type": "text"
-    },
-    "post": {
+    "author": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "api::board.board",
+      "target": "plugin::users-permissions.user",
       "inversedBy": "comments"
+    },
+    "posts": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::post.post",
+      "inversedBy": "comments"
+    },
+    "comment": {
+      "type": "richtext",
+      "required": true
     }
   }
 }
