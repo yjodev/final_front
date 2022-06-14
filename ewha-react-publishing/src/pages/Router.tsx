@@ -1,11 +1,11 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router';
+
 import { LoginPage } from './LoginPage';
 import { HomePage } from './HomePage';
 import { MessagePage } from './MessagePage';
 import { SignupPage } from './SignupPage';
 import { FollowPage } from './FollowPage';
-
 
 export const Router = () => {
   return (
@@ -15,6 +15,7 @@ export const Router = () => {
       <Route path="/login" component={LoginPage} />
       <Route path="/" component={HomePage} exact />
       <Route path="/follow" component={FollowPage} />
+
       <Route path="/">
         <Redirect to="/" />
       </Route>

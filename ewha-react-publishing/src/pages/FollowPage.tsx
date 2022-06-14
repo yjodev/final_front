@@ -2,42 +2,74 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const dummy = [{
-    profile: "https://randomuser.me/api/portraits/men/32.jpg",
-    name: 'Wade Warren',
-    description: 'Marketing Liaison\nCoordinator 💪',
+    profile: "https://cyber.ewha.ac.kr/pluginfile.php/1911367/user/icon/coursemosv2/f1?rev=55184336",
+    name: '최용철',
+    description: '1/12 \nEntropy Paradox💻',
     cart: [{
         name: 'Mac Book Pro',
-        amount: 2,
-        price: 20,
-        image: "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1189&q=80"
+        amount: 10,
+        price: 1960000,
+        image: "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1189&q=80",
+        link: "https://www.coupang.com/vp/products/4322481029?itemId=5504842535&vendorItemId=72804430096&pickType=COU_PICK&q=%EB%A7%A5%EB%B6%81%ED%94%84%EB%A1%9C&itemsCount=36&searchId=6808399a6dc9450a839db6079690c7d1&rank=3&isAddedCart="
+    },
+    {
+        name: '썬글라스',
+        amount: 1,
+        price: 20900,
+        image: "https://images.unsplash.com/photo-1577803645773-f96470509666?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c3VuJTIwZ2xhc3Nlc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
+        link: "https://www.coupang.com/vp/products/5315492295?itemId=7715737429&vendorItemId=75146505219&pickType=COU_PICK&q=%EC%8D%AC%EA%B8%80%EB%9D%BC%EC%8A%A4&itemsCount=36&searchId=5a003ea027ba406dba04542c77f1b1c7&rank=1&isAddedCart="
     }]
 },
 {
-    profile: "https://randomuser.me/api/portraits/men/32.jpg",
-    name: 'Loura Weber',
-    description: 'Lead Manager\nConfidence',
+    profile: "https://avatars.githubusercontent.com/u/16367297?v=4",
+    name: '김정현',
+    description: '3/21 \n Entropy Paradox💻',
     cart: [{
-        name: 'Air Pod',
-        amount: 2,
+        name: 'Air Pod Pro',
+        amount: 1,
         price: 20,
-        image: "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1189&q=80"
+        image: "https://images.unsplash.com/photo-1606741965429-8d76ff50bb2f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8YWlycG9kJTIwcHJvfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+    }, {
+        name: '와인',
+        amount: 1,
+        price: 20,
+        image: "https://media.istockphoto.com/photos/pouring-red-wine-into-a-glass-on-rustic-wooden-table-picture-id1297231609?b=1&k=20&m=1297231609&s=170667a&w=0&h=SAI7SM2elNrYB5yqUMpNOo_q3dWNfxroMmMMPPtC_fo="
+    }
+    ]
+},
+{
+    profile: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDh8fHByb2ZpbGV8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+    name: '박지은',
+    description: '4/3 \n All rounder 😉',
+    cart: [{
+        name: 'Ice Cream Cake',
+        amount: 1,
+        price: 33000,
+        image: "https://images.unsplash.com/photo-1621303837174-89787a7d4729?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8aWNlJTIwY3JlYW0lMjBjYWtlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60"
+    },
+    {
+        name: '디퓨저',
+        amount: 1,
+        price: 23000,
+        image: "https://images.unsplash.com/photo-1617351165959-471f874b60a9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjZ8fGRpZmZ1c2VyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
     }]
 },
 {
-    profile: "https://randomuser.me/api/portraits/men/32.jpg",
-    name: 'Jane Cooper',
-    description: 'Dog Trainer\nTrainer',
+    profile: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDB8fHByb2ZpbGV8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+    name: '김경진',
+    description: '3/30 \n 멋쟁이✨',
     cart: [{
-        name: 'Dog Food',
-        amount: 200,
+        name: '휴대용 선풍기',
+        amount: 1,
         price: 10,
-        image: "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1189&q=80"
+        image: "https://images.unsplash.com/photo-1523437345381-db5ee4df9c04?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fGZhbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
+        link: "https://www.coupang.com/vp/products/1802195522?itemId=3066335622&vendorItemId=81539231504&q=%ED%9C%B4%EB%8C%80%EC%9A%A9+%EC%84%A0%ED%92%8D%EA%B8%B0&itemsCount=36&searchId=4c10c7b409d14c13b8d674c8bdf8d67a&rank=15&isAddedCart="
     }]
 },
 {
-    profile: "https://randomuser.me/api/portraits/men/32.jpg",
-    name: 'Jane Cooper',
-    description: 'Dog Trainer\nTrainer',
+    profile: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjB8fHByb2ZpbGV8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+    name: '오유진',
+    description: '1/1 \n 경영학과😎',
     cart: [{
         name: 'Dog Food',
         amount: 200,
@@ -64,16 +96,19 @@ export const FollowPage = () => {
                         </Link>
                     </div>
 
+
                     <button className="w-full text-gray-700 md:text-center text-2xl font-semibold">
                         친구 목록
                     </button>
 
                     <div className="flex items-center justify-end w-full">
-                        <button className="text-gray-600 focus:outline-none mx-4 sm:mx-0" onClick={() => setOpen(true)}>
-                            <svg className="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                                <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                            </svg>
-                        </button>
+                        <Link to="/homepage">
+                            <button className="text-gray-600 focus:outline-none mx-4 sm:mx-0" onClick={() => setOpen(true)}>
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 stroke-slate-400 mr-4 group-hover:stroke-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                                </svg>
+                            </button>
+                        </Link>
                         <div className="flex sm:hidden">
                             <button type="button" className="text-gray-600 hover:text-gray-500 focus:outline-none focus:text-gray-500" aria-label="toggle menu">
                                 <svg viewBox="0 0 24 24" className="h-6 w-6 fill-current">
@@ -86,7 +121,58 @@ export const FollowPage = () => {
                 </div>
 
             </div>
+            <div className="flex flex-row items-center h-16 rounded-xl bg-white w-full px-4">
 
+                <div className="flex-grow ml-4">
+                    <div className="relative w-full">
+                        <input
+                            type="text"
+                            className="flex w-full border rounded-xl focus:outline-none focus:border-indigo-300 pl-4 h-10"
+                        />
+                        <button
+                            className="absolute flex items-center justify-center h-full w-12 right-0 top-0 text-gray-400 hover:text-gray-600"
+                        >
+                            <svg
+                                className="w-6 h-6"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                ></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div className="ml-4">
+                    <button
+                        className="flex items-center justify-center bg-blue-500 hover:bg-blue-600 rounded-xl text-white px-4 py-1 flex-shrink-0"
+                    >
+                        <span>Send</span>
+                        <span className="ml-2">
+                            <svg
+                                className="w-4 h-4 transform rotate-45 -mt-px"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+                                ></path>
+                            </svg>
+                        </span>
+                    </button>
+                </div>
+            </div>
             <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
 
 
@@ -95,6 +181,7 @@ export const FollowPage = () => {
                 {/* <div className="mb-4">
                     <button className="toggle-theme btn inline-block select-none no-underline align-middle cursor-pointer whitespace-nowrap px-4 py-1.5 rounded text-base font-medium leading-6 tracking-tight text-white text-center border-0 bg-[#6911e7] hover:bg-[#590acb] duration-300" type="button">친구 추가</button>
                 </div> */}
+
                 <div className='user-list w-full max-w-lg mx-auto bg-white rounded-xl shadow-xl flex flex-col py-4'>
                     {dummy.map((data: any) => <div className="user-row flex flex-col items-center justify-between cursor-pointer  p-4 duration-300 sm:flex-row sm:py-4 sm:px-8 hover:bg-[#f6f8f9]">
                         <div className="user flex items-center text-center flex-col sm:flex-row sm:text-left">
@@ -109,8 +196,10 @@ export const FollowPage = () => {
                             </div>
                         </div>
 
-                        <div className="user-option mx-auto sm:ml-auto sm:mr-0">
-                            <button className="btn inline-block select-none no-underline align-middle cursor-pointer whitespace-nowrap px-4 py-1.5 rounded text-base font-medium leading-6 tracking-tight text-white text-center border-0 bg-[#6911e7] hover:bg-[#590acb] duration-300" type="button" onClick={() => {
+                        <div className="user-option mx-auto sm:ml-auto sm:mr-0 ">
+                            <Link to="/message">
+                                <button className="mx-2 btn inline-block select-none no-underline align-middle cursor-pointer whitespace-nowrap px-4 py-1.5 rounded text-base font-medium leading-6 tracking-tight text-white text-center border-0 bg-blue-500 hover:bg-blue-600 duration-300"> 메세지 </button></Link>
+                            <button className="mx-2 btn inline-block select-none no-underline align-middle cursor-pointer whitespace-nowrap px-4 py-1.5 rounded text-base font-medium leading-6 tracking-tight text-white text-center border-0 bg-blue-500 hover:bg-blue-600 duration-300" type="button" onClick={() => {
                                 if (!cartData) {
                                     setOpen(true);
 
@@ -135,14 +224,14 @@ export const FollowPage = () => {
                 </div>
                 <div className={`fixed ${open ? 'right-0' : '-right-80'} duration-100 ease-in-out transition transition-all top-0 max-w-xs w-full h-full px-6 py-4 transition duration-300 transform overflow-y-auto bg-white border-l-2 border-gray-300`}>
                     <div className="flex items-center justify-between">
-                        <h3 className="text-2xl font-medium text-gray-700">Your cart</h3>
+                        <h3 className="text-2xl font-medium text-gray-700">Cart</h3>
                         <button className="text-gray-600 focus:outline-none" onClick={() => setOpen(false)}>
                             <svg className="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M6 18L18 6M6 6l12 12"></path></svg>
                         </button>
                     </div>
                     <hr className="my-3" />
 
-                    {cartData?.map((cart: any) => <div className="flex justify-between mt-6">
+                    {cartData?.map((cart: any) => <div><div className="flex justify-between mt-6">
                         <div className="flex">
                             <img className="h-20 w-20 object-cover rounded" src={cart.image} alt="" />
                             <div className="mx-3">
@@ -158,21 +247,21 @@ export const FollowPage = () => {
                                 </div>
                             </div>
                         </div>
-                        <span className="text-gray-600">{cart.price}$</span>
+                        <span className="text-gray-600">{cart.price}원</span>
+                    </div>
+                        <div>
+                            <a className="flex items-center justify-center mt-4 px-3 py-2 bg-blue-600 text-white text-sm uppercase font-medium rounded hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+
+                                <a href={cart.link}>
+
+                                    <span>🎁 선물하기</span>
+                                </a>
+                                <svg className="h-5 w-5 mx-2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                            </a>
+                        </div>
                     </div>)}
 
-                    <div className="mt-8">
-                        <form className="flex items-center justify-center">
-                            <input className="form-input w-48" type="text" placeholder="Add promocode" />
-                            <button className="ml-3 flex items-center px-3 py-2 bg-blue-600 text-white text-sm uppercase font-medium rounded hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
-                                <span>Apply</span>
-                            </button>
-                        </form>
-                    </div>
-                    <a className="flex items-center justify-center mt-4 px-3 py-2 bg-blue-600 text-white text-sm uppercase font-medium rounded hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
-                        <span>Chechout</span>
-                        <svg className="h-5 w-5 mx-2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                    </a>
+
                 </div>
             </div>
         </div >

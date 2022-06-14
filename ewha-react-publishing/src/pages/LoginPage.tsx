@@ -26,11 +26,13 @@ export const LoginPage = () => {
 				console.log('Well done!');
 				console.log('User token', response.data.jwt);
 				localStorage.setItem("token", response.data.jwt);
+				localStorage.setItem("id", response.data.id);
+
+				replace("/");
 			})
 			.catch((error) => {
 				// Handle error.
 				console.log('An error occurred:', error.response);
-				replace("/")
 			});
 	}
 
