@@ -3,6 +3,7 @@ import React from "react";
 // 헷갈려서 그냥 가져옴
 
 export type Product = {
+    id: number;
     name: string;
     description: string;
     price: number;

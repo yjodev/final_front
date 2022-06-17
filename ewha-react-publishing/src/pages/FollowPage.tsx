@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const dummy = [{
+    id: "1",
     profile: "https://cyber.ewha.ac.kr/pluginfile.php/1911367/user/icon/coursemosv2/f1?rev=55184336",
     name: '최용철',
     description: '1/12 \nEntropy Paradox💻',
@@ -21,6 +22,7 @@ const dummy = [{
     }]
 },
 {
+    id: "2",
     profile: "https://avatars.githubusercontent.com/u/16367297?v=4",
     name: '김정현',
     description: '3/21 \n Entropy Paradox💻',
@@ -38,6 +40,7 @@ const dummy = [{
     ]
 },
 {
+    id: "3",
     profile: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDh8fHByb2ZpbGV8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
     name: '박지은',
     description: '4/3 \n All rounder 😉',
@@ -55,6 +58,7 @@ const dummy = [{
     }]
 },
 {
+    id: "4",
     profile: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDB8fHByb2ZpbGV8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
     name: '김경진',
     description: '3/30 \n 멋쟁이✨',
@@ -67,6 +71,7 @@ const dummy = [{
     }]
 },
 {
+    id: "5",
     profile: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjB8fHByb2ZpbGV8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
     name: '오유진',
     description: '1/1 \n 경영학과😎',
@@ -98,9 +103,9 @@ export const FollowPage = () => {
                                     fill="currentColor"
                                 >
                                     <path
-                                        fill-rule="evenodd"
+                                        fillRule="evenodd"
                                         d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
-                                        clip-rule="evenodd"
+                                        clipRule="evenodd"
                                     />
                                 </svg>
                             </a>
@@ -115,8 +120,8 @@ export const FollowPage = () => {
                     <div className="flex items-center justify-end w-full">
                         <Link to="/homepage">
                             <button className="text-gray-600 focus:outline-none mx-4 sm:mx-0" onClick={() => setOpen(true)}>
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 stroke-slate-400 mr-4 group-hover:stroke-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path strokeLinecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 stroke-slate-400 mr-4 group-hover:stroke-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
                                 </svg>
                             </button>
                         </Link>
@@ -167,7 +172,7 @@ export const FollowPage = () => {
                 </div> */}
 
                 <div className='user-list w-full max-w-lg mx-auto bg-white rounded-xl shadow-xl flex flex-col py-4'>
-                    {dummy.map((data: any) => <div className="user-row flex flex-col items-center justify-between cursor-pointer  p-4 duration-300 sm:flex-row sm:py-4 sm:px-8 hover:bg-[#f6f8f9]">
+                    {dummy.map((data: any) => <div key={data.id} className="user-row flex flex-col items-center justify-between cursor-pointer  p-4 duration-300 sm:flex-row sm:py-4 sm:px-8 hover:bg-[#f6f8f9]">
                         <div className="user flex items-center text-center flex-col sm:flex-row sm:text-left">
                             <div className="avatar-content mb-2.5 sm:mb-0 sm:mr-2.5">
                                 <img className="avatar w-20 h-20 rounded-full" src={data.profile} />
@@ -210,7 +215,7 @@ export const FollowPage = () => {
                     <div className="flex items-center justify-between">
                         <h3 className="text-2xl font-medium text-gray-700">Cart</h3>
                         <button className="text-gray-600 focus:outline-none" onClick={() => setOpen(false)}>
-                            <svg className="h-5 w-5" fill="none" strokeLinecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+                            <svg className="h-5 w-5" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M6 18L18 6M6 6l12 12"></path></svg>
                         </button>
                     </div>
                     <hr className="my-3" />
@@ -222,11 +227,11 @@ export const FollowPage = () => {
                                 <h3 className="text-sm text-gray-600">{cart.name}</h3>
                                 <div className="flex items-center mt-2">
                                     <button className="text-gray-500 focus:outline-none focus:text-gray-600">
-                                        <svg className="h-5 w-5" fill="none" strokeLinecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                        <svg className="h-5 w-5" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                     </button>
                                     <span className="text-gray-700 mx-2">{cart.amount}</span>
                                     <button className="text-gray-500 focus:outline-none focus:text-gray-600">
-                                        <svg className="h-5 w-5" fill="none" strokeLinecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                        <svg className="h-5 w-5" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                     </button>
                                 </div>
                             </div>
@@ -240,7 +245,7 @@ export const FollowPage = () => {
 
                                     <span>🎁 선물하기</span>
                                 </a>
-                                <svg className="h-5 w-5 mx-2" fill="none" strokeLinecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                                <svg className="h-5 w-5 mx-2" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                             </a>
                         </div>
                     </div>)}
