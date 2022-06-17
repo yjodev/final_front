@@ -33,7 +33,7 @@ export const SignupPage = () => {
 		<div
 			className="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm p-4 sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
 			<div className="space-y-6">
-				<h3 className="text-xl font-medium text-gray-900 dark:text-white">회원이 되신 것을 축하합니다</h3>
+				<h3 className="text-xl font-medium text-gray-900 dark:text-white">회원가입하기</h3>
 				<div>
 					<label htmlFor="name" className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Your name</label>
 					<input type="name" name="name" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="홍길동"

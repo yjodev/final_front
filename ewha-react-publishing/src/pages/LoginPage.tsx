@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import { TextField } from '../components/TextField';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import { resourceLimits, setEnvironmentData } from 'worker_threads';
 
 
 export const LoginPage = () => {
@@ -10,6 +11,22 @@ export const LoginPage = () => {
 	const { push, replace } = useHistory();
 	// replace('/'); // 현재 상위 페이지를 대체
 	// push('/signup');  // 페이지 이동
+
+	// const [data,setData] = useState<any>();
+
+	// useEffect (() => {
+	// 	fetch("http://localhost:1337/api/products", {
+	// 		method: 'GET',
+	// 		headers: {
+	// 			accept: "application.json",
+	// 			Authorization: ''
+	// 		}
+	// 	}).then((result) => result.json()).then((json) => setData(json))
+	// }, [])
+	// console.log('data',data)
+
+
+
 
 	const checkUser = () => {
 		if (email === "" || password === "") {
@@ -74,7 +91,7 @@ export const LoginPage = () => {
 				</div>
 				<button onClick={() => checkUser()} type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login to your account</button>
 				<div className="text-sm font-medium text-gray-500 dark:text-gray-300">
-					Not registered? <a href="#" className="text-blue-700 hover:underline dark:text-blue-500">Create
+					Not registered? <a href="#" className="text-blue-700 hover:underline dark:text-blue-500" onClick={() => push('/signup')}>Create
 						account</a>
 				</div>
 			</div>
