@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { isTemplateExpression } from 'typescript';
+import { Label } from '../components/Label';
 import { ProductCard } from '../components/ProductCard'
 
 export type Product = {
@@ -8,7 +10,6 @@ export type Product = {
   description: string;
   price: number;
   image: string
-
 }
 
 // 이걸 strapi에서 가져오는 법 ? 
@@ -175,7 +176,8 @@ export const HomePage = () => {
   const [open, setOpen] = useState(false);
   const [filter, setFilter] = useState<any>();
   const [search, setSearch] = useState("");
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);      // 다른점: 저는 products 전체 데이터를 setProducts로 했는데 (전체페이지여서)
+  const [name, setName] = useState('');                         // 나현님은 products내의 속성별로 set함 (상세페이지여서)
 
   const onChangeSearch = (e: any) => {
     e.preventDefault();
@@ -190,11 +192,15 @@ export const HomePage = () => {
   const getData = async () => {
     const url = `http://localhost:1337/api/products`
     const response = await fetch(url);
-    console.log(response)
+    console.log(response) // 이해 할 수 없는 형태의  data 
     if (response.status === 200) { // 데이터 잘 왔을 때 실행될 내용
       const data = await response.json();
-      console.log(data)               // data console log 잘 함 ! 
-      setProducts(data.results);     // 여기까지 잘 됨
+      console.log(data)               // 이해 할 수 있는 json 형태의 data 
+      setProducts(data.results);     // 여기까지 잘 됨 (object로 저장됨)
+      // console.log(products)
+      setName(data.data[0].attributes.name)
+      // console.log(name)
+      console.log(typeof (products)) // object -> slice 안됨, map 안됨
     }
     else { // 데이터가 잘 안왔을 때.. 
       throw new Error("데이터를 받아오지 못했습니다.")
@@ -338,33 +344,37 @@ export const HomePage = () => {
               return false;
             }
             return true;
-          }).map((data: any) => <div key={data.id} className="">
+          }).map((data: any) =>
 
-            {/* <ProductCard label={Product} /> */}
-
-            <div className="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
-              <div> </div>
-              <div className="flex items-end justify-end h-56 w-full bg-cover" style={{ backgroundImage: "url(" + data.image + ")" }}>
-                <button onClick={() => alert('장바구니에 담겼습니다. 계속 쇼핑하시겠습니까?')} className="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
-                  <svg className="h-5 w-5" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                </button>
+            <div key={data.id} className="">
+              <div className="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
+                <div> </div>
+                <div className="flex items-end justify-end h-56 w-full bg-cover" style={{ backgroundImage: "url(" + data.image + ")" }}>
+                  <button onClick={() => alert('장바구니에 담겼습니다. 계속 쇼핑하시겠습니까?')} className="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+                    <svg className="h-5 w-5" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                  </button>
+                </div>
+                <div className="px-5 py-3">
+                  <h3 className="text-gray-700 uppercase">{data.name}</h3>
+                  <h3 className="text-gray-700 uppercase">{data.description}</h3>
+                  <span className="text-gray-500 mt-2">{data.price}원</span>
+                </div>
               </div>
-              <div className="px-5 py-3">
-                <h3 className="text-gray-700 uppercase">{data.name}</h3>
-                <h3 className="text-gray-700 uppercase">{data.description}</h3>
-                <span className="text-gray-500 mt-2">{data.price}원</span>
-              </div>
-            </div>
-          </div>)}
+            </div>)}
 
 
           {/* {!isLoading && products.map((product) =>
             <ProductCard label={product} />)} */}
+
+
         </div>
+
+        <div>{name}</div>
 
 
       </div>
     </div>
+
   )
 
 };
