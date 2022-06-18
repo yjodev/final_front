@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { isTemplateExpression } from 'typescript';
+import { isJSDocDeprecatedTag, isTemplateExpression } from 'typescript';
 import { Label } from '../components/Label';
 import { ProductCard } from '../components/ProductCard'
 
@@ -179,12 +179,14 @@ export const HomePage = () => {
   const [products, setProducts] = useState<Product[]>([]);      // 다른점: 저는 products 전체 데이터를 setProducts로 했는데 (전체페이지여서)
   const [name, setName] = useState('');                         // 나현님은 products내의 속성별로 set함 (상세페이지여서)
 
+  console.log('[HomePage] products : ', products)
+
   const onChangeSearch = (e: any) => {
     e.preventDefault();
     setSearch(e.target.value);
   };
 
-  console.log('search', search)
+  // console.log('search', search)
 
 
 
@@ -192,15 +194,16 @@ export const HomePage = () => {
   const getData = async () => {
     const url = `http://localhost:1337/api/products`
     const response = await fetch(url);
-    console.log(response) // 이해 할 수 없는 형태의  data 
+    // console.log(response) // 이해 할 수 없는 형태의  data 
     if (response.status === 200) { // 데이터 잘 왔을 때 실행될 내용
       const data = await response.json();
-      console.log(data)               // 이해 할 수 있는 json 형태의 data 
-      setProducts(data.results);     // 여기까지 잘 됨 (object로 저장됨)
+      console.log('getData data : ', data);               // 이해 할 수 있는 json 형태의 data 
+      setProducts(data.data);     // 여기까지 잘 됨 (object로 저장됨)
       // console.log(products)
-      setName(data.data[0].attributes.name)
+
+      setName(data.data[0].attributes.name) //
       // console.log(name)
-      console.log(typeof (products)) // object -> slice 안됨, map 안됨
+      // console.log(typeof (products)) // object -> slice 안됨, map 안됨
     }
     else { // 데이터가 잘 안왔을 때.. 
       throw new Error("데이터를 받아오지 못했습니다.")
@@ -335,7 +338,9 @@ export const HomePage = () => {
 
         {/* 상품 목록*/}
         <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
-          {dummyProduct.slice().filter((data: any) => {
+          {products.slice().filter((data: any) => {
+
+            const { attributes: { image, description, name, price } } = data;
 
             if (filter && (data.price < filter.min || data.price >= filter.max)) {
               return false;
@@ -344,36 +349,63 @@ export const HomePage = () => {
               return false;
             }
             return true;
-          }).map((data: any) =>
+          }).map((data: any) => {
+            console.log('map data : ', data);
+            const { attributes: { image, description, name, price } } = data;
+            return (
+              <div key={data.id} className="">
+                <div className="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
+                  <div> </div>
+                  <div className="flex items-end justify-end h-56 w-full bg-cover" style={{ backgroundImage: "url(" + image + ")" }}>
+                    <button onClick={() => alert('장바구니에 담겼습니다. 계속 쇼핑하시겠습니까?')} className="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+                      <svg className="h-5 w-5" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    </button>
+                  </div>
+                  <div className="px-5 py-3">
+                    <h3 className="text-gray-700 uppercase">{name}</h3>
+                    <h3 className="text-gray-700 uppercase">{description}</h3>
+                    <span className="text-gray-500 mt-2">{price}원</span>
+                  </div>
+                </div>
+              </div>)
+          }
+          )
+          }
+          <div>
 
-            <div key={data.id} className="">
-              <div className="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
-                <div> </div>
-                <div className="flex items-end justify-end h-56 w-full bg-cover" style={{ backgroundImage: "url(" + data.image + ")" }}>
-                  <button onClick={() => alert('장바구니에 담겼습니다. 계속 쇼핑하시겠습니까?')} className="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
-                    <svg className="h-5 w-5" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                  </button>
-                </div>
-                <div className="px-5 py-3">
-                  <h3 className="text-gray-700 uppercase">{data.name}</h3>
-                  <h3 className="text-gray-700 uppercase">{data.description}</h3>
-                  <span className="text-gray-500 mt-2">{data.price}원</span>
-                </div>
+          </div>
+
+          {/* <div className="">
+            <div className="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
+              <div> </div>
+              <div className="flex items-end justify-end h-56 w-full bg-cover" style={{ backgroundImage: "url(" + "https://images.unsplash.com/photo-1606741965429-8d76ff50bb2f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8YWlycG9kJTIwcHJvfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" + ")" }}>
+                <button onClick={() => alert('장바구니에 담겼습니다. 계속 쇼핑하시겠습니까?')} className="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+                  <svg className="h-5 w-5" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                </button>
               </div>
-            </div>)}
+              <div className="px-5 py-3">
+                <h3 className="text-gray-700 uppercase">AirPod Pro</h3>
+                <h3 className="text-gray-700 uppercase">출퇴근 필수템</h3>
+                <span className="text-gray-500 mt-2">2421421원</span>
+              </div>
+            </div>
+          </div> */}
 
-
-          {/* {!isLoading && products.map((product) =>
+          {/* {!isLoading && products.map((product) =>d
             <ProductCard label={product} />)} */}
 
 
         </div>
 
-        <div>{name}</div>
+        <div>
+          {/* {products.map((data: any) => {
+
+          })} */}
+        </div>
 
 
       </div>
-    </div>
+    </div >
 
   )
 
