@@ -41,9 +41,10 @@ export const LoginPage = () => {
 			.then((response) => {
 				// Handle success.
 				console.log('Well done!');
+				console.log('checkUser response.data : ', response.data);
 				console.log('User token', response.data.jwt);
 				localStorage.setItem("token", response.data.jwt);
-				localStorage.setItem("id", response.data.id);
+				localStorage.setItem("id", response.data.user.id);
 				replace("/");
 			})
 			.catch((error) => {

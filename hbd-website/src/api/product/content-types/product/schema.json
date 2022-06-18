@@ -22,6 +22,12 @@
     },
     "image": {
       "type": "string"
+    },
+    "cart_products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::cart-product.cart-product",
+      "mappedBy": "product"
     }
   }
 }

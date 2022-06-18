@@ -80,6 +80,12 @@
       "relation": "oneToMany",
       "target": "api::post.post",
       "mappedBy": "author"
+    },
+    "cart_products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::cart-product.cart-product",
+      "mappedBy": "user"
     }
   }
 }
