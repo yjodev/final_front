@@ -34,7 +34,7 @@ export const LoginPage = () => {
 			return;
 		}
 		axios
-			.post('https://startup-coding-hbd.herokuapp.com/api/users', {
+			.post('https://startup-coding-hbd.herokuapp.com/api/users/auth/local', {
 				identifier: email,
 				password: password,
 			})
