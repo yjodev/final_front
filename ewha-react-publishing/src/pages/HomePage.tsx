@@ -126,10 +126,10 @@ export const HomePage = () => {
     if (response.status === 200) { // 데이터 잘 왔을 때 실행될 내용
       const data = await response.json();
       console.log('Data :', data)
-      setCart(data.data);     // 여기까지 잘 됨 (object로 저장됨)
+      setCart(data.data);
       console.log('CartData :', cart)
     }
-    else { // 데이터가 잘 안왔을 때.. 
+    else { // 데이터가 잘 안왔을 때..  카트 데이터를 잘 못받는중
       throw new Error("데이터를 받아오지 못했습니다.")
     }
     setIsLoading(false);
