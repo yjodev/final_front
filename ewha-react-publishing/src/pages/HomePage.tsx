@@ -17,7 +17,7 @@ const query = qs.stringify({
   encodeValuesOnly: true,
 });
 
-axios.get(`http://localhost:1337/api/cart-products?${query}`)
+axios.get(`https://startup-coding-hbd.herokuapp.com/api/products?${query}`)
 // .then(res => console.log('장바구니 데이터 : ', res.data))
 
 console.log('query : ', query)
@@ -85,13 +85,13 @@ export const HomePage = () => {
 
   // strapi에 저장된 products api 가져오기 
   const getProductData = async () => {
-    const url = `http://localhost:1337/api/products`
+    const url = `https://startup-coding-hbd.herokuapp.com/api/products`
     const response = await fetch(url);
     if (response.status === 200) { // 데이터 잘 왔을 때 실행될 내용
       const data = await response.json();
       setProducts(data.data);     // 여기까지 잘 됨 (object로 저장됨)
-      // console.log(products)
-      // console.log(typeof (products)) // object -> slice 안됨, map 안됨
+      console.log(products)
+      console.log(typeof (products)) // object -> slice 안됨, map 안됨
     }
     else { // 데이터가 잘 안왔을 때.. 
       throw new Error("데이터를 받아오지 못했습니다.")
@@ -99,44 +99,49 @@ export const HomePage = () => {
     setIsLoading(false);
   }
 
-  const qs = require('qs');
-  const query = qs.stringify({
-    filters: {
-      "userId": {
-        $eq: 9,
-      },
-    },
-    populate: '*'
-  }, {
-    encodeValuesOnly: true,
-  });
 
-  axios.get(`http://localhost:1337/api/cart-products?${query}`)
-  // .then(res => console.log('장바구니 데이터 : ', res.data))
+  // 장바구니와 user relation 
+
+  // const qs = require('qs');
+  // const query = qs.stringify({
+  //   filters: {
+  //     "userId": {
+  //       $eq: 9,
+  //     },
+  //   },
+  //   populate: '*'
+  // }, {
+  //   encodeValuesOnly: true,
+  // });
+
+  // axios.get(`https://startup-coding-hbd.herokuapp.com/api/products?${query}`)
+  // // .then(res => console.log('장바구니 데이터 : ', res.data))
 
   // console.log('query : ', query)
 
-  const getCartData = async () => {
-    const url = `http://localhost:1337/api/cart-products?${query}`
-    const response = await fetch(url);
-    if (response.status === 200) { // 데이터 잘 왔을 때 실행될 내용
-      const data = await response.json();
-      console.log('Data :', data)
-      setCart(data.data);     // 여기까지 잘 됨 (object로 저장됨)
-      console.log('CartData :', cart)
-    }
-    else { // 데이터가 잘 안왔을 때.. 
-      throw new Error("데이터를 받아오지 못했습니다.")
-    }
-    setIsLoading(false);
-  }
+  // const getCartData = async () => {
+  //   const url = `https://startup-coding-hbd.herokuapp.com/api/products?${query}`
+  //   const response = await fetch(url);
+  //   if (response.status === 200) { // 데이터 잘 왔을 때 실행될 내용
+  //     const data = await response.json();
+  //     console.log('Data :', data)
+  //     setCart(data.data);     // 여기까지 잘 됨 (object로 저장됨)
+  //     console.log('CartData :', cart)
+  //   }
+  //   else { // 데이터가 잘 안왔을 때.. 
+  //     throw new Error("데이터를 받아오지 못했습니다.")
+  //   }
+  //   setIsLoading(false);
+  // }
 
 
   const { push } = useHistory();
 
   useEffect(() => { //Effect Hook은 리랜더링 될때마다 실행된다. 하지만 배열을 넘겨서 선택적으로 업데이트 할 수 있다. 
     getProductData();
-    getCartData();
+    // getCartData();
+
+
     // const getData = axios
     //   .get('http://localhost:1337/api/products')
     //   .then((res) => {
@@ -287,7 +292,7 @@ export const HomePage = () => {
                     <button onClick={() => {
                       const isOk = window.confirm('장바구니에 담겼습니다. 계속 쇼핑하시겠습니까?')
 
-                      axios.post('http://localhost:1337/api/cart-products', {
+                      axios.post('https://startup-coding-hbd.herokuapp.com/api/products', {
                         data: {
                           product: data.id,
                           userId: localStorage.getItem('id')
@@ -314,7 +319,7 @@ export const HomePage = () => {
         </div>
 
       </div>
-
+      {/* 
       {cart.map((data: any) => {
 
         <div className="flex justify-between mt-6">
@@ -336,7 +341,7 @@ export const HomePage = () => {
           <span className="text-gray-600">{data.attributes.product.data.attributes.price}원</span>
         </div>
 
-      })}
+      })} */}
 
     </div >
 
