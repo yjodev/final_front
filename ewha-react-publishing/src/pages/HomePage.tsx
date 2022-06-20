@@ -5,22 +5,6 @@ import { isJSDocDeprecatedTag, isTemplateExpression } from 'typescript';
 import { Label } from '../components/Label';
 import { ProductCard } from '../components/ProductCard'
 
-const qs = require('qs');
-const query = qs.stringify({
-  filters: {
-    "userId": {
-      $eq: 9,
-    },
-  },
-  populate: '*'
-}, {
-  encodeValuesOnly: true,
-});
-
-axios.get(`https://startup-coding-hbd.herokuapp.com/api/products?${query}`)
-// .then(res => console.log('장바구니 데이터 : ', res.data))
-
-console.log('query : ', query)
 
 export type Product = {
   name: string;
@@ -74,6 +58,8 @@ export const HomePage = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [cart, setCart] = useState<Cart[]>([]);
   const [count, setCount] = useState(1);
+  const [selectedProduct, setSelectedProduct] = useState();
+  const [productID, setProductID] = useState();
 
   const onChangeSearch = (e: any) => {
     e.preventDefault();
@@ -81,11 +67,11 @@ export const HomePage = () => {
   };
 
   // cart 수량 변경용
-  function onClick() {
+  function addCart() {
     setCount(count + 1);
   }
 
-  function onClick2() {
+  function deleteCart() {
     setCount(count - 1);
   }
 
@@ -106,6 +92,9 @@ export const HomePage = () => {
     }
     setIsLoading(false);
   }
+
+
+
 
 
   // 장바구니와 user relation 
@@ -148,15 +137,6 @@ export const HomePage = () => {
   useEffect(() => { //Effect Hook은 리랜더링 될때마다 실행된다. 하지만 배열을 넘겨서 선택적으로 업데이트 할 수 있다. 
     getProductData();
     getCartData();
-
-
-    // const getData = axios
-    //   .get('http://localhost:1337/api/products')
-    //   .then((res) => {
-    //     console.log(res);
-    //     setProducts(res.data.data);
-    //     console.log(res.data.data);
-    // });
   }, []); // 처음 렌더링 될때만 데이터를 가져온다
 
 
@@ -245,24 +225,24 @@ export const HomePage = () => {
             <div className="mx-3">
               <h3 className="text-sm text-gray-600">Mac Book Pro</h3>
               <div className="flex items-center mt-2">
-                <button onClick={onClick} className="text-gray-500 focus:outline-none focus:text-gray-600">
+                <button onClick={addCart} className="text-gray-500 focus:outline-none focus:text-gray-600">
                   <svg className="h-5 w-5" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 </button>
                 <span className="text-gray-700 mx-2">{count}</span>
-                <button onClick={onClick2} className="text-gray-500 focus:outline-none focus:text-gray-600">
+                <button onClick={deleteCart} className="text-gray-500 focus:outline-none focus:text-gray-600">
                   <svg className="h-5 w-5" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 </button>
               </div>
             </div>
           </div>
-          <span className="text-gray-600">1960000원</span>
+          <span className="text-gray-600">2000000원</span>
         </div>
 
 
 
 
 
-        <a className="flex items-center justify-center mt-4 px-3 py-2 bg-blue-600 text-white text-sm uppercase font-medium rounded hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+        <a href="https://www.coupang.com/vp/products/4322481029?itemId=5504842535&vendorItemId=72804430096&q=%EB%A7%A5%EB%B6%81%ED%94%84%EB%A1%9C&itemsCount=36&searchId=84ccbd38ee9f4fefb8efd0ce5617d5ba&rank=1&isAddedCart=" className="flex items-center justify-center mt-4 px-3 py-2 bg-blue-600 text-white text-sm uppercase font-medium rounded hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
           <span>구매하기</span>
           <svg className="h-5 w-5 mx-2" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
         </a>
@@ -305,7 +285,8 @@ export const HomePage = () => {
                           product: data.id,
                           userId: localStorage.getItem('id')
                         }
-                      })
+                      }
+                      )
                     }} className="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
                       <svg className="h-5 w-5" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                     </button>
@@ -327,7 +308,7 @@ export const HomePage = () => {
         </div>
 
       </div>
-      {/* 
+      {/* user 와 장바구니 relation  
       {cart.map((data: any) => {
 
         <div className="flex justify-between mt-6">
