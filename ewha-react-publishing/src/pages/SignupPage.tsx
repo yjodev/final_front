@@ -10,7 +10,7 @@ export const SignupPage = () => {
 
 	const register = () => {
 		axios
-			.post('http://localhost:1337/api/auth/local/register', {
+			.post('https://startup-coding-hbd.herokuapp.com/api/users/auth/local/register', {
 				username: name,
 				email: email,
 				password: password,
@@ -69,4 +69,5 @@ export const SignupPage = () => {
 
 
 	</div>;
+
 };
