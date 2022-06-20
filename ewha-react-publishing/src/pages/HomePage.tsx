@@ -90,8 +90,9 @@ export const HomePage = () => {
     if (response.status === 200) { // 데이터 잘 왔을 때 실행될 내용
       const data = await response.json();
       setProducts(data.data);     // 여기까지 잘 됨 (object로 저장됨)
-      console.log(products)
-      console.log(typeof (products)) // object -> slice 안됨, map 안됨
+      console.log('data: ', data)
+      console.log('products: ', products)
+      console.log('typeof (products)', typeof (products)) // object -> slice 안됨, map 안됨
     }
     else { // 데이터가 잘 안왔을 때.. 
       throw new Error("데이터를 받아오지 못했습니다.")
@@ -102,44 +103,44 @@ export const HomePage = () => {
 
   // 장바구니와 user relation 
 
-  // const qs = require('qs');
-  // const query = qs.stringify({
-  //   filters: {
-  //     "userId": {
-  //       $eq: 9,
-  //     },
-  //   },
-  //   populate: '*'
-  // }, {
-  //   encodeValuesOnly: true,
-  // });
+  const qs = require('qs');
+  const query = qs.stringify({
+    filters: {
+      "userId": {
+        $eq: 9,
+      },
+    },
+    populate: '*'
+  }, {
+    encodeValuesOnly: true,
+  });
 
-  // axios.get(`https://startup-coding-hbd.herokuapp.com/api/products?${query}`)
-  // // .then(res => console.log('장바구니 데이터 : ', res.data))
+  axios.get(`https://startup-coding-hbd.herokuapp.com/api/products?${query}`)
+  // .then(res => console.log('장바구니 데이터 : ', res.data))
 
-  // console.log('query : ', query)
+  console.log('query : ', query)
 
-  // const getCartData = async () => {
-  //   const url = `https://startup-coding-hbd.herokuapp.com/api/products?${query}`
-  //   const response = await fetch(url);
-  //   if (response.status === 200) { // 데이터 잘 왔을 때 실행될 내용
-  //     const data = await response.json();
-  //     console.log('Data :', data)
-  //     setCart(data.data);     // 여기까지 잘 됨 (object로 저장됨)
-  //     console.log('CartData :', cart)
-  //   }
-  //   else { // 데이터가 잘 안왔을 때.. 
-  //     throw new Error("데이터를 받아오지 못했습니다.")
-  //   }
-  //   setIsLoading(false);
-  // }
+  const getCartData = async () => {
+    const url = `https://startup-coding-hbd.herokuapp.com/api/products?${query}`
+    const response = await fetch(url);
+    if (response.status === 200) { // 데이터 잘 왔을 때 실행될 내용
+      const data = await response.json();
+      console.log('Data :', data)
+      setCart(data.data);     // 여기까지 잘 됨 (object로 저장됨)
+      console.log('CartData :', cart)
+    }
+    else { // 데이터가 잘 안왔을 때.. 
+      throw new Error("데이터를 받아오지 못했습니다.")
+    }
+    setIsLoading(false);
+  }
 
 
   const { push } = useHistory();
 
   useEffect(() => { //Effect Hook은 리랜더링 될때마다 실행된다. 하지만 배열을 넘겨서 선택적으로 업데이트 할 수 있다. 
     getProductData();
-    // getCartData();
+    getCartData();
 
 
     // const getData = axios
