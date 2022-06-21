@@ -17,7 +17,6 @@ export const Router = () => {
 
       <Route path="/follow" component={FollowPage} />
       <Route path="/rooms/:id" component={MessagePage} exact />
-
       <Route path="/">
         <Redirect to="/" />
       </Route>

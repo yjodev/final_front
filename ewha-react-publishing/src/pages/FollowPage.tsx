@@ -86,6 +86,18 @@ const dummy = [{
 export const FollowPage = () => {
     const [open, setOpen] = useState(false);
     const [cartData, setCartData] = useState<any[]>();
+    const [count, setCount] = useState(1);
+
+
+    // cart 수량 변경용
+    function addCart() {
+        setCount(count + 1);
+    }
+
+    function deleteCart() {
+        setCount(count - 1);
+    }
+
     return (
 
         <div className="header">
@@ -125,6 +137,8 @@ export const FollowPage = () => {
                                 </svg>
                             </button>
                         </Link>
+
+
                         <div className="flex sm:hidden">
                             <button type="button" className="text-gray-600 hover:text-gray-500 focus:outline-none focus:text-gray-500" aria-label="toggle menu">
                                 <svg viewBox="0 0 24 24" className="h-6 w-6 fill-current">
