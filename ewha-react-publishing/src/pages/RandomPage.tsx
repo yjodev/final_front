@@ -1,10 +1,28 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import { relativeTimeRounding } from 'moment';
+import React, { useEffect,useState } from 'react';
 import { Link, useHistory } from "react-router-dom"
 
 
 export const RandomPage = () => {
-	
+	const { push } = useHistory();
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        const productsData = axios
+            .get('https://startup-coding-hbd.herokuapp.com/api/products')
+            .then((res) => {
+                console.log("res:" ,res);
+                setProducts(res.data.data);
+                console.log("res.data.data: ",res.data.data);
+                console.log("products: ",products);
+
+                console.log('typeof (products)', typeof (products))
+                console.log("products: ",products);
+
+            });
+    }, []);
+
 	return <div>
     <div className="header">
         <div className="container mx-auto px-6 py-3">
@@ -60,12 +78,14 @@ export const RandomPage = () => {
 </div>
 
 <div className="products">
-    <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
+    {products.map((data: any) => {
+        return(
+    <div key={data.id} className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
           
               <div className="">
                 <div className="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
                   <div> </div>
-                  <div className="flex items-end justify-end h-56 w-full bg-cover" style={{ backgroundImage: "url(" + "https://images.unsplash.com/photo-1587815073078-f636169821e3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8c3RyYXdiZXJyeXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" + ")" }}>
+                  <div className="flex items-end justify-end h-56 w-full bg-cover" style={{ backgroundImage: `url('${data.attributes.image})` }} >
                     {/* <img src="https://images.unsplash.com/photo-1587815073078-f636169821e3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8c3RyYXdiZXJyeXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" alt=""></img> */}
                     <button onClick={() => {
                       const isOk = window.confirm('장바구니에 담겼습니다. 계속 쇼핑하시겠습니까?')
@@ -74,9 +94,9 @@ export const RandomPage = () => {
                     </button>
                   </div>
                   <div className="px-5 py-3">
-                    <h3 className="text-gray-700 uppercase">name</h3>
-                    <h3 className="text-gray-700 uppercase">description</h3>
-                    <span className="text-gray-500 mt-2">price원</span>
+                    <h3 className="text-gray-700 uppercase">{data.attributes.name}</h3>
+                    <h3 className="text-gray-700 uppercase">{data.attributes.description}</h3>
+                    <span className="text-gray-500 mt-2">{data.attributes.price}원</span>
                   </div>
                 </div>
               </div>
@@ -87,7 +107,7 @@ export const RandomPage = () => {
 
           </div>
 
-    </div>
+    </div>)})}
 
 
 </div>
