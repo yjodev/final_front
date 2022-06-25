@@ -157,8 +157,11 @@ export const HomePage = () => {
               <button className="mx-1 text-sm">Follower</button>
             </Link>
 
-            <Link to="/follow">
+            <Link to="/random">
               <button className="mx-1 text-sm">Random</button>
+            </Link>
+            <Link to="/newproduct">
+              <button className="mx-1 text-sm">New Product</button>
             </Link>
 
           </div>
