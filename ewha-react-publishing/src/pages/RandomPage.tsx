@@ -12,14 +12,8 @@ export const RandomPage = () => {
         const productsData = axios
             .get('https://startup-coding-hbd.herokuapp.com/api/products')
             .then((res) => {
-                console.log("res:" ,res);
                 setProducts(res.data.data);
                 console.log("res.data.data: ",res.data.data);
-                console.log("products: ",products);
-
-                console.log('typeof (products)', typeof (products))
-                console.log("products: ",products);
-
             });
     }, []);
 

@@ -1,68 +1,61 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from "react-router-dom"
 
 
 export const NewProductPage = () => {
 
-    const [product, setProductt] = useState('');
-	const [email, setEmail] = useState("");
+	const [description, setDescription] = useState("");
 	const [name, setName] = useState("");
-	const [password, setPassword] = useState("");
-	
+	const [imageUrl, setImageUrl] = useState("");
+	const [price, setPrice] = useState("");
 
 
+    const [products, setProducts] = useState([]);
+
+      useEffect(() => {
+          const productsData = axios
+              .get('https://startup-coding-hbd.herokuapp.com/api/products')
+              .then((res) => {
+                  setProducts(res.data.data);
+                  console.log("products: ",res.data.data);
+              });
+      }, []);
+  
     const addProduct = () => {
-        if (product != '') {
+            if (description === "" || imageUrl === "" || price ==="") {
+                alert("제품명, 제품 설명, 가격을 입력해주세요.")
+                return; }
             axios
                 .post('https://startup-coding-hbd.herokuapp.com/api/products', {
                     data: {
                         name: name,
-                        descriptipn: email,
-                        price: 1,
-                        image: password
+                        description: description,
+                        price: price,
+                        image: imageUrl
                     },
                 })
                 .then((response) => {
                     // Handle success.
-
+                    alert('상품이 등록되었습니다. 홈페이지에서 확인하세요')
                     window.location.reload();
+                    
                 })
                 .catch((error) => {
                     // Handle error.
                     console.log('An error occurred:', error.response);
                 });
-        }
+        
     };
 
-    // useEffect(() => {
-    //     const bookData = axios
-    //         .get(`https://startup-coding-hbd.herokuapp.com/api/products`)
-    //         .then((res) => {
-    //             const book = res.data.data.attributes;
-    //             setBookTitle(book.bookName);
-    //             setBookDescription(book.bookDescription);
-    //             setBookCategory(book.category.data.attributes.categoryName);
-    //             setBookImage(book.bookThumbnail);
-    //             setBookWriter(book.bookWriter);
-    //             setBookComments(book.comments.data);
-    //             setBookRate(book.ratings.data[0].attributes.ratingScore);
-    //             setBookTag(book.tags.data[0].attributes.tagName);
-    //             // console.log(book.comments.data[0].attributes.commentContent);
-    //             console.log(book.comments.data);
-    //             console.log(comment)
 
-    //         });
 
-    // }, []);
-
-	return <div><div className="container mx-auto px-6 py-3">
-    <div className="flex items-center justify-between">
-
-        <div className="hidden w-full text-gray-600 md:flex md:items-center">
-
-            <div className="m-5 text-slate-400">
-                <a href="javascript:history.back();">
+	return <div>
+    <div className="container mx-auto px-6 py-3">
+        <div className="flex items-center justify-between">
+            <div className="hidden w-full text-gray-600 md:flex md:items-center">
+                <div className="m-5 text-slate-400">
+                    <a href="javascript:history.back();">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-10 w-10"
@@ -75,12 +68,10 @@ export const NewProductPage = () => {
                             clipRule="evenodd"
                         />
                     </svg>
-                </a>
+                    </a>
+                </div>
             </div>
-        </div>
-
-
-        <button className="w-full text-gray-700 md:text-center text-2xl font-semibold">
+       <button className="w-full text-gray-700 md:text-center text-2xl font-semibold">
             상품 추가하기
         </button>
 
@@ -118,28 +109,45 @@ export const NewProductPage = () => {
 							setName(event.target.value)
 						}} />
 				</div>
+
 				<div>
-					<label htmlFor="email" className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">상품 설명</label>
-					<input value={email} type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="상품에 대한 설명을 입력하세요"
+					<label htmlFor="description" className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">상품 설명</label>
+					<input value={description} type="description" name="description" id="description" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="상품에 대한 설명을 입력하세요"
 						onChange={(event) => {
-							setEmail(event.target.value)
-						}} />
-				</div>
-				<div>
-					<label htmlFor="password" className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">이미지 url</label>
-					<input type="password" name="password" id="password" placeholder="상품의 이미지 url을 입력하세요" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-						value={password}
-						onChange={(event) => {
-							setPassword(event.target.value)
+							setDescription(event.target.value)
 						}} />
 				</div>
 
-				<button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                <div>
+					<label htmlFor="price" className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">상품 가격</label>
+					<input value={price} type="price" name="price" id="price" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="상품 가격을 입력하세요"
+						onChange={(event) => {
+							setPrice(event.target.value)
+						}} />
+				</div>
+
+                <div>
+					<label htmlFor="imageUrl" className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">이미지 url</label>
+					<input value={imageUrl} type="imageUrl" name="imageUrl" id="imageUrl" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="상품의 이미지 url을 입력하세요"
+						onChange={(event) => {
+							setImageUrl(event.target.value)
+						}} />
+				</div>
+
+
+
+
+				<button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onClick={() => {
+                            addProduct();
+                        
+                        }}
 					>새로운 상품 추가하기</button>
 
 			</div>          
                       
-                    </div></div></div>
+         </div>
+    </div>
+    </div>
     
 
-};
+}
