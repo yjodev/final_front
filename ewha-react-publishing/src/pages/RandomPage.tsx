@@ -5,7 +5,9 @@ import { Link, useHistory } from "react-router-dom"
 
 export const RandomPage = () => {
 	
-	return <div className="container mx-auto px-6 py-3">
+	return <div>
+    <div className="header">
+        <div className="container mx-auto px-6 py-3">
     <div className="flex items-center justify-between">
 
         <div className="hidden w-full text-gray-600 md:flex md:items-center">
@@ -55,6 +57,43 @@ export const RandomPage = () => {
     </div>
 
 </div>
-    
+</div>
+
+<div className="products">
+    <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
+          
+              <div className="">
+                <div className="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
+                  <div> </div>
+                  <div className="flex items-end justify-end h-56 w-full bg-cover" style={{ backgroundImage: "url(" + "https://images.unsplash.com/photo-1587815073078-f636169821e3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8c3RyYXdiZXJyeXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" + ")" }}>
+                    {/* <img src="https://images.unsplash.com/photo-1587815073078-f636169821e3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8c3RyYXdiZXJyeXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" alt=""></img> */}
+                    <button onClick={() => {
+                      const isOk = window.confirm('장바구니에 담겼습니다. 계속 쇼핑하시겠습니까?')
+                    }} className="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+                      <svg className="h-5 w-5" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    </button>
+                  </div>
+                  <div className="px-5 py-3">
+                    <h3 className="text-gray-700 uppercase">name</h3>
+                    <h3 className="text-gray-700 uppercase">description</h3>
+                    <span className="text-gray-500 mt-2">price원</span>
+                  </div>
+                </div>
+              </div>
+          
+        
+          
+          <div>
+
+          </div>
+
+    </div>
+
+
+</div>
+
+ 
+
+</div>
 
 };
