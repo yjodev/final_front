@@ -164,7 +164,7 @@ export const FollowPage = () => {
             <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
 
 
-            <div className='flex flex-col items-center justify-center min-h-screen p-16 bg-slate-200'>
+            <div className='flex flex-col items-center justify-center min-h-screen p-16 bg-white-200'>
 
                 {/* <div className="mb-4">
                     <button className="toggle-theme btn inline-block select-none no-underline align-middle cursor-pointer whitespace-nowrap px-4 py-1.5 rounded text-base font-medium leading-6 tracking-tight text-white text-center border-0 bg-[#6911e7] hover:bg-[#590acb] duration-300" type="button">친구 추가</button>
